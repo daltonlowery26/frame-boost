@@ -32,6 +32,8 @@ fps = num_frames / duration if duration > 0 else 30
 def sort_key(f):
     match = re.search(r'(\d+)', os.path.basename(f))
     return int(match.group(1)) if match else -1
+
+# key to sort
 frame_files.sort(key=sort_key)
 
 # frame read
@@ -42,6 +44,7 @@ height, width, layers = frame.shape
 fourcc = cv2.VideoWriter_fourcc(*'mp4v')
 out = cv2.VideoWriter(output_video, fourcc, fps, (width, height))
 
+# loop through images
 for file in frame_files:
     img = cv2.imread(file)
     out.write(img)

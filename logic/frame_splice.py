@@ -21,7 +21,27 @@ def extract_frames(video_path, output_dir):
     cap.release()
     print(f"Extracted {frame_count} frames at {fps} fps.")
 
-output_dir = 'C:/Users/dalto/OneDrive/Pictures/Documents/Projects/Coding Projects/Frame Rate/photo/dl_test/'
-vid_path = 'C:/Users/dalto/OneDrive/Pictures/Documents/Projects/Coding Projects/Frame Rate/video/dl_test.mp4'
 
-extract_frames(video_path=vid_path, output_dir=output_dir)
+video_root = 'C:/Users/dalto/OneDrive/Pictures/Documents/Projects/Coding Projects/Frame Rate/video/origin/'
+photo_root = 'C:/Users/dalto/OneDrive/Pictures/Documents/Projects/Coding Projects/Frame Rate/photo/splice/'
+video_extensions = ('.mp4')
+
+
+if not os.path.exists(photo_root):
+    os.makedirs(photo_root)
+
+# loop through video directory
+for dirpath, _, filenames in os.walk(video_root):
+    for filename in filenames:
+        if filename.lower().endswith(video_extensions):
+            video_path = os.path.join(dirpath, filename)
+
+            relative_dir = os.path.relpath(dirpath, video_root)
+            video_name_without_ext = os.path.splitext(filename)[0]
+            output_dir = os.path.join(photo_root, relative_dir, video_name_without_ext)
+
+            print(f"Processing '{video_path}'...")
+            extract_frames(video_path=video_path, output_dir=output_dir)
+
+
+print("All videos processed.")

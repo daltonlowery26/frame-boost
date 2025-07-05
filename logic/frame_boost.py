@@ -86,10 +86,42 @@ def process_frames(input_dir, output_dir):
             print(f"Saved last original frame: {os.path.join(output_dir, new_frame_name)}")
 
 
+def process_pitch_folders(base_directory, output):
+    for player_name in os.listdir(base_directory):
+        player_path = os.path.join(base_directory, player_name)
+        
+        # ensure player path exists
+        if not os.path.isdir(player_path):
+            continue
+        
+        print(f"Processing Player: {player_name}")
+
+
+        for pitch_name in os.listdir(player_path):
+            pitch_path = os.path.join(player_path, pitch_name)
+
+            if not os.path.isdir(pitch_path):
+                continue
+            
+            print(f"  -> Processing Pitch: {pitch_name}")
+
+            # 30fps -> 60 fps
+            output_path_1 = os.path.join(pitch_path, '1')
+            os.makedirs(output_path_1, exist_ok=True)
+            process_frames(input_dir=pitch_path, output_dir=output_path_1)
+
+            # 60 fps -> 120fps 
+            output_path_2 = os.path.join(output_path_1, '2')
+            final_output_dir = os.path.join(output, player_name, pitch_name)
+            os.makedirs(final_output_dir, exist_ok=True)
+            process_frames(input_dir=output_path_1, output_dir=final_output_dir)
+
+
+
 if __name__ == "__main__":
+
     input_directory = '/content/drive/MyDrive/frame_rate/1'
-    output_directory = '/content/drive/MyDrive/frame_rate/new'
+    output_directory = ''
 
-    process_frames(input_directory, output_directory)
-
+    process_pitch_folders(base_directory=input_directory, output=output_directory)
     print("Processing complete.")

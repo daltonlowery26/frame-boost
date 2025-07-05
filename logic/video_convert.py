@@ -17,4 +17,4 @@ def convert_to_h264(input_file, output_file):
         print("Error during conversion:")
         print(e.stderr.decode())
 
-convert_to_h264('C:/Users/dalto/OneDrive/Pictures/Documents/Projects/Coding Projects/Frame Rate/video/frame_boot/dl_test.mp4', 'C:/Users/dalto/OneDrive/Pictures/Documents/Projects/Coding Projects/Frame Rate/video/frame_boot/dl_test.mp4')
+convert_to_h264('C:/Users/dalto/OneDrive/Pictures/Documents/Projects/Coding Projects/Frame Rate/video/frame_boost/dl_test.mp4', 'C:/Users/dalto/OneDrive/Pictures/Documents/Projects/Coding Projects/Frame Rate/video/frame_boost/dl_test_c.mp4')
