@@ -50,9 +50,17 @@ def interpolate_frames(frame1_path, frame2_path, output_dir, base_name, frame_nu
 
 
 def process_frames(input_dir, output_dir):
-    files = sorted(os.listdir(input_dir), key=lambda x: int(os.path.splitext(x.split('_')[1])[0]))
-    output_frame_counter = 0
+  
+    # Filter files to ensure they have the expected format 'name_number.extension'
+    valid_files = [f for f in os.listdir(input_dir) if '_' in f and len(f.split('_')) > 1 and os.path.splitext(f.split('_')[1])[0].isdigit()]
+    files = sorted(valid_files, key=lambda x: int(os.path.splitext(x.split('_')[1])[0]))
 
+    if not files:
+        print(f"No valid image files found in {input_dir}")
+        return
+
+
+    output_frame_counter = 0
     for i in range(len(files) - 1):
         frame1_name = files[i]
         frame2_name = files[i+1]
@@ -61,7 +69,7 @@ def process_frames(input_dir, output_dir):
         # og frame save
         original_frame_np = load_image(frame1_path)
         if original_frame_np is not None:
-            new_frame_name = f"frame_{output_frame_counter}.png"
+            new_frame_name = f"frame_{output_frame_counter}.jpg"
             save_image(original_frame_np, os.path.join(output_dir, new_frame_name))
             print(f"Saved original frame: {os.path.join(output_dir, new_frame_name)}")
             output_frame_counter += 1
@@ -81,7 +89,7 @@ def process_frames(input_dir, output_dir):
         last_frame_path = os.path.join(input_dir, files[-1])
         last_frame_np = load_image(last_frame_path)
         if last_frame_np is not None:
-            new_frame_name = f"frame_{output_frame_counter}.png"
+            new_frame_name = f"frame_{output_frame_counter}.jpg"
             save_image(last_frame_np, os.path.join(output_dir, new_frame_name))
             print(f"Saved last original frame: {os.path.join(output_dir, new_frame_name)}")
 
@@ -99,7 +107,7 @@ def process_pitch_folders(base_directory, output):
 
         for pitch_name in os.listdir(player_path):
             pitch_path = os.path.join(player_path, pitch_name)
-
+            print(pitch_path)
             if not os.path.isdir(pitch_path):
                 continue
             
@@ -120,8 +128,8 @@ def process_pitch_folders(base_directory, output):
 
 if __name__ == "__main__":
 
-    input_directory = '/content/drive/MyDrive/frame_rate/1'
-    output_directory = ''
+    input_directory = '/content/drive/MyDrive/frame_rate'
+    output_directory = '/content/drive/MyDrive/boosted'
 
     process_pitch_folders(base_directory=input_directory, output=output_directory)
     print("Processing complete.")
