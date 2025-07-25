@@ -22,8 +22,8 @@ def extract_frames(video_path, output_dir):
     print(f"Extracted {frame_count} frames at {fps} fps.")
 
 
-video_root = 'C:/Users/dalto/OneDrive/Pictures/Documents/Projects/Coding Projects/Frame Rate/video/origin/'
-photo_root = 'C:/Users/dalto/OneDrive/Pictures/Documents/Projects/Coding Projects/Frame Rate/photo/splice/'
+video_root = 'C:/Users/dalto/OneDrive/Pictures/Documents/Projects/Coding Projects/Frame Rate/video/elite_cut/'
+photo_root = 'C:/Users/dalto/OneDrive/Pictures/Documents/Projects/Coding Projects/Frame Rate/photo/elite_splice/'
 video_extensions = ('.mp4')
 
 

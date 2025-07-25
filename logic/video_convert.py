@@ -20,14 +20,13 @@ def convert_to_h264(input_file, output_file):
 
 
 if __name__ == "__main__":
-    input_folder = Path("C:/Users/dalto/OneDrive/Pictures/Documents/Projects/Coding Projects/Frame Rate/video/frame_boost/")
-    video_extensions = ['.mp4']
+    input_folder = Path("C:/Users/dalto/OneDrive/Pictures/Documents/Projects/Coding Projects/Frame Rate/video/elite_boosted/")
 
     for file_path in input_folder.iterdir():
         if file_path.stem.endswith('_c'):
             continue
 
-        output_file = file_path.with_name(f"{file_path.stem}_c{file_path.suffix}")
+        output_file = file_path.with_name(f"{file_path.stem}_c.mp4")
             
         print(f"Found video: {file_path.name}. Starting conversion...")
         convert_to_h264(str(file_path), str(output_file))

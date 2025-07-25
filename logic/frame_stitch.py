@@ -60,29 +60,21 @@ def create_video_from_frames(frames_dir, og_video_path, output_video_path):
         out.write(img)
 
     out.release()
-    print("Done.")
 
 
 if __name__ == "__main__":
-    boost_base_dir = 'C:/Users/dalto/OneDrive/Pictures/Documents/Projects/Coding Projects/Frame Rate/photo/boost'
-    origin_base_dir = 'C:/Users/dalto/OneDrive/Pictures/Documents/Projects/Coding Projects/Frame Rate/video/origin'
-    output_base_dir = 'C:/Users/dalto/OneDrive/Pictures/Documents/Projects/Coding Projects/Frame Rate/video/frame_boost'
+    boost_base_dir = 'C:/Users/dalto/OneDrive/Pictures/Documents/Projects/Coding Projects/Frame Rate/photo/elite_boosted'
+    origin_base_dir = 'C:/Users/dalto/OneDrive/Pictures/Documents/Projects/Coding Projects/Frame Rate/video/elite_cut'
+    output_base_dir = 'C:/Users/dalto/OneDrive/Pictures/Documents/Projects/Coding Projects/Frame Rate/video/elite_boosted'
 
-    # Loop through each pitcher's folder
-    for pitcher_name in os.listdir(boost_base_dir):
-        pitcher_dir = os.path.join(boost_base_dir, pitcher_name)
-        if not os.path.isdir(pitcher_dir):
-            continue
+    # Loop through each pitch folder for the current pitcher
+    for pitch_name in os.listdir(boost_base_dir):
+        frames_dir = os.path.join(boost_base_dir, pitch_name)
 
-        # Loop through each pitch folder for the current pitcher
-        for pitch_name in os.listdir(pitcher_dir):
-            frames_dir = os.path.join(pitcher_dir, pitch_name)
-            if not os.path.isdir(frames_dir):
-                continue
+        og_video_path = os.path.join(origin_base_dir,  f"{pitch_name}.mp4")
+        output_video_path = os.path.join(output_base_dir, f"{pitch_name}_b.mp4")
 
-            # Construct paths for original and output videos
-            og_video_path = os.path.join(origin_base_dir, pitcher_name, f"{pitch_name}.mp4")
-            output_video_path = os.path.join(output_base_dir, pitcher_name, f"{pitch_name}_b.mp4")
+        # Process the frames for this pitch
+        create_video_from_frames(frames_dir, og_video_path, output_video_path)
 
-            # Process the frames for this pitch
-            create_video_from_frames(frames_dir, og_video_path, output_video_path)
+        print("done!")
